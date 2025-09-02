@@ -1,10 +1,12 @@
 import sys
 
 express = ' '.join(sys.argv[1:])
+
+if len(sys.argv) < 1:
+    args = input("enter calc, this way (n1 '+' n2):: ")
 args = express.split(' ')
 func = None
 
-print(args)
 result = 0
 for arg in args:
     if arg.isnumeric():
