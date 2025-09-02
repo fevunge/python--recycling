@@ -1,13 +1,3 @@
-"""
-El usuario comienza con un saldo de 1000.
-
-Puede elegir entre: Depositar, Retirar, Ver saldo, Salir.
-
-No permita que el saldo sea negativo.
-
-El ciclo solo termina si selecciona "Salir".
-"""
-
 import sqlite3
 import platform
 from random import randint, random
