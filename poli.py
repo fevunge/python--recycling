@@ -5,7 +5,7 @@ if len(argv[1:]):
 else:
     express = input("phrase:: ")
 
-if express[::-1] == express:
+if express[::-1].lower == express.lower:
     print("Is polydrome!")
 else:
     print("Is not polydrome!")
