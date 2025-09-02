@@ -14,7 +14,8 @@ def enter():
     print()
 
 def regist():
-    print()
+    print("REGIST".center(42, '$'), "-" * 42, sep='\n')
+    print("Insert your real name and nif please".center(42, '_'))
 
 def rising():
     print()
@@ -32,7 +33,9 @@ cursor.execute("""
 CREATE TABLE IF NOT EXISTS user (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
-    passwd TEXT NOT NULL,
+    pin TEXT NOT NULL,
+    nif TEXT NOT NULL,
+    accountNum TEXT NOT NULL
     balance INTEGER
 )""")
 
