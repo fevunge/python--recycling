@@ -25,12 +25,22 @@ def rising():
 
 def deposit(conn, cursos, user):
     print(" DEPOSIT ".center(42, '+'), "-" * 42, sep='\n')
-    print("*", "-" * 40, "*", sep="")
+    print("+", "-" * 40, "+", sep="")
     print("|", f"User: {user[2]}".ljust(40, " "), "|", sep="")
-    print("|", f"Account Number: {user[4]}".ljust(40, " "), "|", sep="")
-    print("*", "-" * 40, "*", sep="")
+    print("|", f"Account Number: {user[5]}".ljust(40, " "), "|", sep="")
+    print("+", "-" * 40, "+", sep="")
     print("Insert amount to deposit")
-    amount = int(input("amount: $ "))
+    amount = ""
+    attempts = 4
+    while not amount.isdigit() and attempts:
+        amount = input("amount: $ ")
+        if not amount.isdigit():
+            print("'amount' must be a valid unmber!")
+            attempts -= 1
+    if not attempts:
+        print("Too many invalid attempts. Canceling operation...\n")
+        time.sleep(2)
+        cleancli()
 
 def enter(conn, cursor):
     print("ENTER".center(42, '+'), "-" * 42, sep='\n')
@@ -54,13 +64,14 @@ def enter(conn, cursor):
                     cleancli()
                     print("  INVALID CHOICE  ".center(42, 'X'))
                 if choice == 1:
-                    print("*", "-" * 40, "*", sep="")
+                    print("+", "-" * 40, "+", sep="")
                     print("|", f"${float(user[6] / 100)}".center(40, " "), "|", sep="")
-                    print("*", "-" * 40, "*", sep="")
+                    print("+", "-" * 40, "+", sep="")
                     input("OK? :: [continiue]")
                     cleancli()
                 if choice == 2:
-                    deposit(conn, cursor)
+                    cleancli()
+                    deposit(conn, cursor, user)
 
         else:
             cleancli()
