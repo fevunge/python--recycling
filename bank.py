@@ -45,11 +45,17 @@ def enter(conn, cursor):
 def regist(conn, cursor):
     print("REGIST".center(42, '+'), "-" * 42, sep='\n')
     print("Insert your real name and nif please".center(42, '_'))
-    name = input("Real Name: ")
+    names_part = ()
+    name_message = "Full Name: "
+    while (True):
+        name = input(message)
+        names_part = name.partition(" ")
+        if names_part[2]:
+            break
+        message = "!Your really Full Name PLEASE!: "
     nif = input("NIF: ")
     pin = str(time.clock_gettime(1))[-5:-1]
-    names_part = name.partition(" ")
-    login = names_part[0][:2] + names_part[2] if bool(names_part[2]) else names_part[0][0:randint(int(len(name) / 2), len(name))]
+    login = names_part[0][:2] + names_part[2]
     try:
         cursor.execute(f"INSERT INTO user (login, name, nif, pin, accountNum, balance) VALUES (?, ?, ?, ?, ?, ?)",
             (login.lower(), name, nif, pin, str(random())[1:7], 0))
@@ -86,7 +92,7 @@ cursor = connection.cursor()
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS user (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    login TEXT NOT NULL,
+    login TEXT NOT NULL UNIQUE,
     name TEXT NOT NULL,
     pin TEXT NOT NULL,
     nif TEXT NOT NULL,
