@@ -46,7 +46,7 @@ def regist(conn, cursor):
     print("REGIST".center(42, '+'), "-" * 42, sep='\n')
     print("Insert your real name and nif please".center(42, '_'))
     names_part = ()
-    name_message = "Full Name: "
+    message = "Full Name: "
     while (True):
         name = input(message)
         names_part = name.partition(" ")
