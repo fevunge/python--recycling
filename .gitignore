@@ -2,4 +2,5 @@
 bin/
 include/
 lib/
-lib64/python3.15/*
+lib64/
+lib64
