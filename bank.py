@@ -19,6 +19,19 @@ def cleancli():
     elif "Windows" == platform.system():
         platform.os.system("cls")
 
+def rising():
+    print("RISING".center(42, '+'), "-" * 42, sep='\n')
+    print("Insert the amount you want to rising:".center(42, '_'))
+
+def deposit(conn, cursos, user):
+    print(" DEPOSIT ".center(42, '+'), "-" * 42, sep='\n')
+    print("*", "-" * 40, "*", sep="")
+    print("|", f"User: {user[2]}".ljust(40, " "), "|", sep="")
+    print("|", f"Account Number: {user[4]}".ljust(40, " "), "|", sep="")
+    print("*", "-" * 40, "*", sep="")
+    print("Insert amount to deposit")
+    amount = int(input("amount: $ "))
+
 def enter(conn, cursor):
     print("ENTER".center(42, '+'), "-" * 42, sep='\n')
     print("Insert your credencials".center(42, '_'))
@@ -33,6 +46,22 @@ def enter(conn, cursor):
             cursor.execute("SELECT * FROM user WHERE login = ?", (login,))
             user = cursor.fetchone()
             print(f" Wellcome {user[2]} ".center(42, '+'))
+            choice = None
+            while (choice != 5):
+                print("-" * 42, "[1] See Balance", "[2] Deposit", "[3] Resing", "[4] Settings", "[5] Exit", sep="\n")
+                choice = int(input(":: "))
+                if choice not in [1, 2, 3, 4, 5] :
+                    cleancli()
+                    print("  INVALID CHOICE  ".center(42, 'X'))
+                if choice == 1:
+                    print("*", "-" * 40, "*", sep="")
+                    print("|", f"${float(user[6] / 100)}".center(40, " "), "|", sep="")
+                    print("*", "-" * 40, "*", sep="")
+                    input("OK? :: [continiue]")
+                    cleancli()
+                if choice == 2:
+                    deposit(conn, cursor)
+
         else:
             cleancli()
             print(" Invalid credentials ".center(42, 'x'))
@@ -68,19 +97,6 @@ def regist(conn, cursor):
         cleancli()
         print("\n", " Something went wrong ".center(42, "x"))
         return False
-
-def rising():
-    print("RISING".center(42, '+'), "-" * 42, sep='\n')
-    print("Insert the amount you want to rising:".center(42, '_'))
-    print()
-
-def deposit():
-    print("DEPOSIT".center(42, '+'), "-" * 42, sep='\n')
-    print("Insert the amount you want to deposit:".center(42, '_'))
-
-def see_balance():
-    print("SEE BALANCE".center(42, '+'), "-" * 42, sep='\n')
-    print("Your current balance is:".center(42, '_'))
 
 def logout(conn, cursor):
     print("Logout. Back soon!")
